@@ -1,0 +1,39 @@
+# Local data and generated media
+data/*
+!data/.gitkeep
+*.db
+*.sqlite
+*.sqlite3
+*.mp3
+*.mp4
+*.mov
+*.wav
+*.webm
+
+# Project-local binary/runtime bundles
+.vendor/
+.venv/
+venv/
+
+# Python caches and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets*.json
+
+# Browser/session exports
+instagram_reels_collection.json
