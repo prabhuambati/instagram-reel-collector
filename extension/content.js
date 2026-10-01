@@ -19,7 +19,9 @@
       const profile = profileFromLink(profileAnchor);
       const img = a.querySelector('img') || container?.querySelector('img');
       const text = container?.innerText || '';
-      output.set(reel_url, { reel_url, ...profile, caption: text.slice(0, 1000), source_url: location.href, collected_at: new Date().toISOString() });
+      const audioLink = container?.querySelector('a[href*="/reels/audio/"], a[href*="/audio/"]');
+      const audio_label = audioLink?.innerText?.trim() || (text.match(/original audio|original sound/i)?.[0] || '');
+      output.set(reel_url, { reel_url, ...profile, caption: text.slice(0, 1000), audio_label, source_url: location.href, collected_at: new Date().toISOString() });
     }
     return [...output.values()];
   };
