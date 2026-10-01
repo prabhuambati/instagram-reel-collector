@@ -6,10 +6,13 @@ A local-first prototype for collecting public Instagram reel metadata, flagging 
 
 - Imports reel records exported by the browser extension or a JSON/CSV file.
 - Stores username, profile URL, profile-photo URL, public ID when available, reel URL, caption, and search source.
-- Uses a transparent heuristic classifier for an initial review queue. It does **not** pretend to be a production-grade vision/audio model yet.
+- Uses a conservative, transparent heuristic classifier for an initial review queue. Generic terms such as `cover`, `live`, or `music` do not prove human performance; explicit singing or instrument evidence is required.
+- Includes optional visual/audio model analysis for permitted local videos. It uses environment-provided credentials only, fails closed when unavailable, and never stores API keys in the project.
 - Tracks duplicate reel URLs and content hashes.
 - Converts video to MP3 with FFmpeg when installed.
 - Embeds title, artist/creator, album, and original reel URL into the MP3 metadata.
+- Performs inexpensive song identification from displayed Instagram audio labels and explicit caption formats such as `Song: Title`; vague labels such as `Original audio` remain unidentified.
+- Captures visible audio-label text from the browser extension when Instagram exposes it.
 - Serves a searchable local dashboard.
 - Exports credits as CSV and JSON.
 
@@ -49,7 +52,7 @@ The `extension/` folder is a small Manifest V3 extension. Load it unpacked in Ch
 
 ## Next production upgrades
 
-1. Replace the heuristic classifier with a multimodal classifier and a review threshold.
+1. Calibrate the hybrid heuristic/multimodal classifier with labeled review examples and a review threshold.
 2. Add a licensed audio-fingerprint provider for song recognition.
 3. Add a browser-controlled discovery runner with an explicit per-source cap and pause/review controls.
 4. Add resumable jobs, rate-limit backoff, and audit logs.
